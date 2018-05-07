@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="ginfo-tabs">
+
+        <img onclick="clickTab(this, 'tab1')" src="/*img1*/" onmouseout="this.src='/*img1*/'" onmouseover="this.src='/*img1a*/'" style="cursor: pointer;" width="180" height="180">
+
+        <img class="static-lessons" onclick="clickTab(this, 'tab2')" src="/*img2*/" onmouseout="this.src='/*img2*/'" onmouseover="this.src='/*img2a*/';" style="cursor: pointer;" width="180" height="180">
+
+        <img class="static-final" onclick="clickTab(this, 'tab3')" src="/*img23*/" onmouseout="this.src='/*img3*/'" onmouseover="this.src='/*img3a*/';" style="cursor: pointer;" width="180" height="180">
+
+        <div id="tab1" class="tabcontent">
+            <h2>General Information</h2>
+            <p id="pdf">[[Identification]]</p>
+            <p id="pdf">[[Course Introduction]]</p>
+            <p id="pdf">[[Entry Profile]]</p>
+            <p id="pdf">[[General Objective]]</p>
+            <p id="pdf">[[Specific Objectives]]</p>
+            <p id="pdf">[[General Contents]]</p>
+            <p id="pdf">[[Methodology]]</p>
+            <p id="pdf">[[e-Moderation and Development of e-Tasks ]]</p>
+            <p id="pdf">[[Assessment and Evaluation ]]</p>
+            <p id="pdf">[[Academic calendar]]</p>
+            <p id="pdf">[[e-Task Description Structure]]</p>
+            <p id="pdf">[[e-Task Workflow]]</p>
+            <p id="pdf">[[Course Program]]</p>
+
+            <p>
+                <br>
+            </p>
+        </div>
+
+        <div id="tab2" class="tabcontent">
+            <h2>Online Lessons</h2>
+            <p id="actividad">[[e-Task Online Lesson Evaluation Rubric]]</p>
+            <p id="pdf">[[Download e-Task Online Lesson Evaluation Rubric]]</p>
+            <p id="check">[[e-Task Online Lesson Self-Assessment Checklist]]</p>
+            <p id="pdf">[[Download Online Lesson Self-Assessment Checklist]]</p>
+            <p>
+                <br>
+            </p>
+        </div>
+
+        <div id="tab3" class="tabcontent">
+            <h2>Final Self-Assessment</h2>
+            <p id="check">[[Self Assessment Rubric]]</p>
+            <p id="pdf">[[Download Self Assessment Rubric]]</p>
+            <p>
+                <br>
+            </p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var elementClick = null;//Elemento actual activo
+        function clickTab(element, idContent) {//evento click
+            var content = document.getElementById(idContent);//elemento contenido que se va a habrir
+            var tabcontent = document.getElementsByClassName("tabcontent");//todos los contenidos
+            if(elementClick != null){//Sí hay contenido activo entonces ...
+                var urlOut = addOnMouseOut(elementClick);//Le agrega el evento mouseout y obtiene el src
+                elementClick.src = urlOut;//Le pone la imagen que se usa cuando sale el mouse
+                elementClick = null;//reinicia el elemento activo
+            }
+            if (content.style.display == "block") {//Si el contenido del elemento actual esta visible entonces...
+                content.style.display = "none";//Lo pone invisible
+                addOnMouseOut(element);//Le agrega el evento mouseout respectivo
+            } else {//Si no esta visible...
+                for (i = 0; i < tabcontent.length; i++) {//Le quita la visibilidad a los contenidos que esten activos
+                    tabcontent[i].style.display = "none";
+                }
+                content.style.display = "block";//Pone el contenido visible que pidio el usuario
+                elementClick = element;//Pone el elemento actual 
+                element.onmouseout = function(){};//Quita el evento onmouseout
+            }
+        }
+        function addOnMouseOut(e){//funcion para poner el evento onmouseout
+            var urlOut = e.getAttribute("onmouseout").split("'")[1];//obtiene el src
+            e.onmouseout = function(){this.src = urlOut};//agrega el src
+            return urlOut;//retorna el src (para quien lo pueda usar)
+        }
+    </script>
+</body>
+
+</html>
